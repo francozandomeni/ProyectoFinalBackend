@@ -41,7 +41,7 @@ export const sendRecoveryPass = async (userEmail, token) => {
 }
 
 export const sendEmailToUserCreated = async (userEmail) => {
-    const link = `http://localhost:8080/login`
+    const link = `https://proyectofinalbackend-production-8060.up.railway.app/login`
     await transporter.sendMail({
         from: options.gmail.adminEmail,
         to: userEmail,
@@ -61,7 +61,7 @@ export const sendEmailToUserCreated = async (userEmail) => {
 
 
 export const sendEmailToUserDeleted = async (userEmail) => {
-    const link = `http://localhost:8080/register`
+    const link = `https://proyectofinalbackend-production-8060.up.railway.app/register`
     await transporter.sendMail({
         from: options.gmail.adminEmail,
         to: userEmail,
@@ -80,7 +80,7 @@ export const sendEmailToUserDeleted = async (userEmail) => {
 
 
 export const sendEmailToUserDeletedByAdmin = async (userEmail) => {
-    const link = `http://localhost:8080/register`
+    const link = `https://proyectofinalbackend-production-8060.up.railway.app/register`
     await transporter.sendMail({
         from: options.gmail.adminEmail,
         to: userEmail,
@@ -98,7 +98,7 @@ export const sendEmailToUserDeletedByAdmin = async (userEmail) => {
 }
 
 export const sendEmailDeletedProduct = async (userEmail, product) =>{
-    const link = `http://localhost:8080/login`
+    const link = `https://proyectofinalbackend-production-8060.up.railway.app/login`
     
     await transporter.sendMail({
         from: options.gmail.adminEmail,
@@ -123,7 +123,7 @@ export const sendEmailDeletedProduct = async (userEmail, product) =>{
 }
 
 export const sendEmailUpdatedProduct = async (userEmail, product) =>{
-    const link = `http://localhost:8080/login`
+    const link = `https://proyectofinalbackend-production-8060.up.railway.app/login`
     
     await transporter.sendMail({
         from: options.gmail.adminEmail,
@@ -147,7 +147,7 @@ export const sendEmailUpdatedProduct = async (userEmail, product) =>{
 }
 
 export const sendEmailPurchaseMade = async (userEmail, ticket) =>{
-    const link = `http://localhost:8080/login`
+    const link = `https://proyectofinalbackend-production-8060.up.railway.app/login`
     
     await transporter.sendMail({
         from: options.gmail.adminEmail,

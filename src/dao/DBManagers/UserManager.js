@@ -33,7 +33,7 @@ export default class UserManager{
         };
     }
     async deleteById(uid){
-        const result = await userModel.findByIdAndDelete(uid).lean();
+        const result = await userModel.findByIdAndDelete(uid);//AQUI
         return {
             status: "success",
             result

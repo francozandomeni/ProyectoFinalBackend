@@ -100,38 +100,32 @@ const inicializePassport = () => {
 
     passport.use('github', new GitHubStrategy({
         clientID: "Iv1.e8ccfbc76ce39116",
-        clientSecret:"a6f91eaa9f22b6a479f9680bbdb473b05e7b8dcc",
-        callbackURL:"https://proyectofinalbackend-production-8060.up.railway.app/api/sessions/githubcallback"
-    }, async(accessToken, refreshToken,profile, done)=>{
+        clientSecret: "a6f91eaa9f22b6a479f9680bbdb473b05e7b8dcc",
+        callbackURL: "http://localhost:8080/api/sessions/githubcallback"
+    }, async (accessToken, refreshToken, profile, done) => {
         try {
-            console.log(profile._json.name);
-            const last_name = profile._json.name
-            let email;
-            if(!profile._json.email){
-                email = profile.username;
-            }
-
-            let user = await userModel.findOne({email:profile._json.email});
-            if(user){
-                console.log('Usuario ya registrado');
-                return done(null,false)
-
-            }
-
+            console.log(profile);
+            let user = await userModel.findOne({ email: profile._json.login });
             const newCart = await cartService.createCart({ products: [] });
-            await newCart.save();
-
-            const newUser = {
-                first_name: "",
-                last_name,
-                email,
-                age: 18,
-                password: createHash(generateRandomPassword()),
-                cart: newCart._id,
-                role: "user"
+            
+            if (!user) {
+                let newUser = {
+                    first_name: "",
+                    last_name: profile._json.name,
+                    email: profile._json.login,
+                    age: 18,
+                    password: "",
+                    cart: newCart._id,
+                    role: "user"
+                }
+                await newCart.save();
+                let result = await userModel.create(newUser)
+                done(null, result)
             }
-            const result = await userModel.create(newUser);
-            return done (null, result);
+            else{
+                done(null,user)
+            }
+
 
         } catch (error) {
             return done(error)

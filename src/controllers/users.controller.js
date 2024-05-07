@@ -26,8 +26,7 @@ class UsersController {
       const user = await userService.getUserById(uid)
       const deleteUser = await userService.deleteUser(user)
 
-      if(user.email){
-
+      if(user.email ){
         const userDeleted = await sendEmailToUserDeletedByAdmin(user.email);
       }
 
