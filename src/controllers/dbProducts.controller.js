@@ -91,7 +91,7 @@ class ProductsController {
             }
 
             let { thumbnail } = req.body
-            thumbnail = `http://localhost:8080/public/files/products/${filename}`
+            thumbnail = `/public/files/products/${filename}`
 
             const { title, description, price, code, stock, category } = req.body;
 
