@@ -3,10 +3,10 @@ import jwt from "jsonwebtoken"
 export const checkRole = (roles)=>{
     return (req,res,next)=>{
         if(!req.user){
-            return res.status(500).send(`<h2>Necesitas estar autenticado para ingresar a este página.</h2> <h3 class="send"><a href="http://localhost:8080/login">Click aqui para loguearte</a> <br> <a href="http://localhost:8080/register">Click aqui para registrarte</a></h3>`)
+            return res.status(500).send(`<h2>Necesitas estar autenticado para ingresar a este página.</h2> <h3 class="send"><a href="/login">Click aqui para loguearte</a> <br> <a href="/register">Click aqui para registrarte</a></h3>`)
         }
         if(!roles.includes(req.user.role)){
-            return res.status(500).send(`<h2>No estas autorizado para ingresar a esta página. Solo clientes premium o administradores.</h2> <h3 class="send"> <br> <a href="http://localhost:8080/">Click aqui para ir al inicio</a></h3>`)
+            return res.status(500).send(`<h2>No estas autorizado para ingresar a esta página. Solo clientes premium o administradores.</h2> <h3 class="send"> <br> <a href="/">Click aqui para ir al inicio</a></h3>`)
         }
         next();
     }
