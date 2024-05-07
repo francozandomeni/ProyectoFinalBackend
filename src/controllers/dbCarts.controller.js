@@ -63,7 +63,7 @@ class CartsController {
       }
 
       const result = await cartService.addProductById(cid, pid, quantity);
-      res.status(200).send(`Tu producto se ha añadido al carrito correctamente. <br><a href="http://localhost:8080/cart">Click aqui para ir al carrito.</a> <br> <a href="http://localhost:8080/">Click aqui para seguir comprando</a>`);
+      res.status(200).send(`Tu producto se ha añadido al carrito correctamente. <br><a href="/cart">Click aqui para ir al carrito.</a> <br> <a href="/">Click aqui para seguir comprando</a>`);
 
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -79,7 +79,7 @@ class CartsController {
       console.log(cid)
 
       const result = await cartService.deleteProductById(cid, pid);
-      res.status(200).send(`<h2>Tu producto se ha quitado del carrito.</h2> <h3 class="send"><a href="http://localhost:8080/cart">Click aqui para ir al carrito <i class="bi bi-cart4"></i></a> <br> <a href="http://localhost:8080/">Click aqui para seguir comprando</a></h3>`);
+      res.status(200).send(`<h2>Tu producto se ha quitado del carrito.</h2> <h3 class="send"><a href="/cart">Click aqui para ir al carrito <i class="bi bi-cart4"></i></a> <br> <a href="/">Click aqui para seguir comprando</a></h3>`);
     } catch (error) {
       res.status(500).json(`No se pudo agregar el producto al carrito ${cid}${pid}`);
     }
@@ -102,7 +102,7 @@ class CartsController {
       const { pid } = req.params;
       const  quantity  = req.body.quantity;
       const result = await cartService.updateProductQuantity(cid, pid, quantity);
-      res.status(200).send(`<h2>La cantidad del producto en tu carrito se ha actualizado correctamente</h2> <h3 class="send"><a href="http://localhost:8080/cart">Click aqui para volver al carrito<i class="bi bi-cart4"></i></a> <br> <a href="http://localhost:8080/">Click aqui para seguir comprando</a></h3>`);
+      res.status(200).send(`<h2>La cantidad del producto en tu carrito se ha actualizado correctamente</h2> <h3 class="send"><a href="/cart">Click aqui para volver al carrito<i class="bi bi-cart4"></i></a> <br> <a href="/">Click aqui para seguir comprando</a></h3>`);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -125,7 +125,7 @@ class CartsController {
 
     try {
       const result = await cartService.deleteAllFromCart(cid);
-      res.status(200).send(`<h2>Tus productos se eliminaron del carrito correctamente.</h2> <h3><br><a href="http://localhost:8080/cart">Click aqui para ir al carrito.</a> <br> <a href="http://localhost:8080/">Click aqui para volver a seleccionar productos</a></h3>`);
+      res.status(200).send(`<h2>Tus productos se eliminaron del carrito correctamente.</h2> <h3><br><a href="/cart">Click aqui para ir al carrito.</a> <br> <a href="/">Click aqui para volver a seleccionar productos</a></h3>`);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -239,7 +239,7 @@ class CartsController {
 
       console.log("Purchase made successfully");
 
-      return res.status(200).send(`Compra realizada con exito. Te hemos enviado los datos de la transaccion a tu correo electronico. Si quieres ver tus tickets, ve a la sesion de "tickets". <a href="http://localhost:8080/">Toca aqui para volver al inicio</a>`);
+      return res.status(200).send(`Compra realizada con exito. Te hemos enviado los datos de la transaccion a tu correo electronico. Si quieres ver tus tickets, ve a la sesion de "tickets". <a href="/">Toca aqui para volver al inicio</a>`);
     } catch (error) {
       console.error("Error processing purchase:", error);
       return res.status(500).json({ error: "Error processing purchase" });

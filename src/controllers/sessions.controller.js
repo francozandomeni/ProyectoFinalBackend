@@ -46,7 +46,7 @@ class SessionsController {
 
     static login = async (req, res) => {
         if (!req.user) {
-            return res.status(400).send(`<h2>No se encuentra el usuario.</h2> <h3 class="send"><a href="http://localhost:8080/register">Click aqui para registrarte</a></h3>`)
+            return res.status(400).send(`<h2>No se encuentra el usuario.</h2> <h3 class="send"><a href="/register">Click aqui para registrarte</a></h3>`)
         }
 
         
