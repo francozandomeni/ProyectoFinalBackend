@@ -1,0 +1,35 @@
+
+<div>
+    
+    <h1>Bienvenido {{mainUser.first_name}}!</h1> <!-- Acceder a las propiedades de cada usuario con 'this' -->
+    <p>Email: {{mainUser.email}}</p>
+    <p>Role: {{mainUser.role}}</p>
+    <br>
+    {{#if users}}
+    {{#each users}}
+        <h3>Email: {{this.email}}</h3>
+        <p>Nombre y Apellido: <strong>{{this.first_name}} {{this.last_name}}</p></strong>
+        <p>User ID: <strong>{{this._id}}</strong></p>
+        <p>Rol: {{this.role}}</p>
+        <form action="/api/users/updateUser" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="uid" value="{{this._id}}">
+        <select name="role">
+            <option value="user">User</option>
+            <option value="premium">Premium</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button type="submit">Actualizar rol</button>
+        </form>
+    <br>
+    <form action="/api/users/deleteUser" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="uid" value="{{this._id}}">
+        <button type="submit">Eliminar Usuario</button>
+    </form>
+    <br>
+    {{/each}}
+</div>
+{{else}}
+<p>No hay usuarios para mostrar</p>
+{{/if}}

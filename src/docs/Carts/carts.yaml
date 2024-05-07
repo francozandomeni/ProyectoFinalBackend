@@ -1,0 +1,109 @@
+
+"/api/carts/{cid}":
+  get:
+    summary: Obtener carrito 
+    tags:
+    - Carts
+    parameters:
+      - name: cid
+        in: path
+        required: true
+        description: cid es el id del carrito de un usuario en particular
+        schema:
+          type: string
+    responses: 
+      "200":
+        description: Carrito encontrado de manera exitosa
+      "500":
+        description: Error interno del servidor
+
+"/api/carts/{cid}/product/{pid}":
+  post:
+    summary: Agregar un producto a un carrito
+    tags:
+      - Carts
+    parameters:
+      - name: cid
+        in: path
+        required: true
+        description: cid es el id del carrito de un usuario en particular
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        description: pid es el id del producto a agregar en el carrito del usuario
+        schema: 
+          type: string
+    responses:
+      "200":
+        description: Producto agregado
+      "500":
+        description: Error interno del servidor
+  delete:
+    summary: Agregar un producto a un carrito
+    tags:
+      - Carts
+    parameters:
+      - name: cid
+        in: path
+        required: true
+        description: cid es el id del carrito de un usuario en particular
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        description: pid es el id del producto a eliminar en el carrito del usuario
+        schema: 
+          type: string
+    responses:
+      "200":
+        description: Producto agregado
+      "500":
+        description: Error interno del servidor
+  put:
+    summary: Agregar un producto a un carrito
+    tags:
+      - Carts
+    parameters:
+      - name: cid
+        in: path
+        required: true
+        description: cid es el id del carrito de un usuario en particular
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        description: pid es el id del producto a modificar en el carrito del usuario
+        schema: 
+          type: string
+    responses:
+      "200":
+        description: Producto agregado
+      "500":
+        description: Error interno del servidor
+
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        products:
+          type: Array
+          description: array de contenido del carrito
+        product:
+          type: ObjectId
+          description: id del producto
+        quantity:
+          type: number
+          description: Cantidad del producto en el carrito
+        _id:
+          type: ObjectId
+          description: id del producto CARGADO en el carrito, con las respectivas
+      example:
+        products: [{
+        product: ObjectId("64dfd546df4668df46"),
+        quantity: 1,
+        _id: "6646464646fefefe651635"}]

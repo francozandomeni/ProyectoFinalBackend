@@ -1,0 +1,19 @@
+<div>
+  <h2><a href="/">Inicio</a></h2>
+</div>
+<div>
+  {{#if tickets}}
+  {{#each tickets}}
+  <div class="product">
+    <h2>Ticket ID: {{this._id}}</h2>
+    <p>Codigo del ticket: {{this.code}}</p>
+    <p>Fecha: {{this.purchase_datetime}}</p>
+    <p>Comprador: {{this.purchaser}}</p>
+    <p>Total: $ {{this.amount}}</p>
+
+  </div>
+  {{/each}}
+  {{else}}
+  <p>Aun no has hecho ninguna compra </p>
+  {{/if}}
+</div>

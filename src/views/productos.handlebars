@@ -1,0 +1,68 @@
+<div>
+  <div class="user-info">
+    <h1>Bienvenido {{mainUser.first_name}}!</h1>
+    <p>Email: {{mainUser.email}}</p>
+    <p>Edad: {{mainUser.age}}</p>
+    <p>Cart: {{mainUser.cart}}</p>
+  </div>
+
+  <div class="top-right-buttons">
+    <a href="/api/sessions/logout">Salir <i class="bi bi-door-closed"></i></a>
+    <a href="/cart">Carrito<i class="bi bi-cart4"></i></a>
+    <a href="/tickets">Tickets <i class="bi bi-ticket"></i></a>
+  </div>
+
+  <div class="premium">
+    <h2>Usuario premium? <a href="/create">Crea un producto para la venta:</a></h2>
+    <br>
+    <h2><a href="/chat">Ingresa al chat <i class="bi bi-chat-left-dots"></i></a></h2>
+    <br>
+  </div>
+
+  <h1>Lista de Productos</h1>
+  {{#if productos}}
+  {{#each productos}}
+  <div class="container-products">
+    <div class="product">
+      <h2>{{this.title}}</h2>
+      <p>Descripcion del producto: {{this.description}}</p>
+      <p>Precio: ${{this.price}}</p>
+      <p>Imagen: {{this.thumbnail}}</p>
+      <p>Categoria: {{this.category}}</p>
+      <p>Stock: {{this.stock}}</p>
+      <p>Id: {{this.id}}</p>
+      {{!-- {{log quantityOptions}} --}}
+
+      <form action="/api/carts/product/{{this.id}}" method="post">
+        <input type="hidden" name="product" value="{{this.id}}">
+        <label for="quantity">Cantidad:</label>
+        <select id="quantity" name="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        <button type="submit" value="Agregar al Carrito">Agregar al carrito<i class="bi bi-cart"></i></button>
+      </form>
+      <!-- Agrega más detalles según sea necesario -->
+    </div>
+  </div>
+  {{/each}}
+  {{else}}
+  <p>No hay productos disponibles</p>
+  {{/if}}
+
+  <div class="pagination">
+    {{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}">Anterior</a>
+    {{/if}}
+
+    {{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}">Siguiente</a>
+    {{/if}}
+  </div>
+</div>

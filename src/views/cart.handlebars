@@ -1,0 +1,47 @@
+<div>
+  <h1>Tus productos te esperan {{mainUser.first_name}} {{mainUser.last_name}}</h1>
+  <h2>Carrito</h2>
+  <h3>Lista de Productos en el carrito <i class="bi bi-cart2"></i></h3>
+  <h3><a href="/">INICIO</a></h3>
+  <p id="p"><strong>ID del Carrito:</strong> {{mainUser.cart}}</p>
+  {{#if cart.products}}
+  {{#each cart.products}}
+  <div class="product">
+    <h4>Producto: {{this.product}}</h4>
+    <p>Cantidad: {{this.quantity}}</p>
+    <form action="/api/carts/product/{{this.product}}" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit"><i class="bi bi-trash"></i></button>
+    </form>
+    <form action="/api/carts/product/{{this.product}}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <label for="quantity">Cantidad:</label>
+          <select id="quantity" name="quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        <button type="submit">Actualizar cantidad del producto</button>
+    </form>
+  </div>
+
+  {{/each}}
+  {{else}}
+  <h3>No hay productos disponibles</h3>
+  {{/if}}
+  {{#if cart.products}}
+  <form action="/api/carts/{{mainUser.cart}}/purchase" method="post">
+    <input type="submit" value="Finalizar compra">
+  </form>
+  <form action="/api/carts/{{mainUser.cart}}/product" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Eliminar todo <i class="bi bi-trash"></i></button>
+  </form>
+  {{/if}}
+
+</div>

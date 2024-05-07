@@ -1,0 +1,217 @@
+paths:
+
+  "/products":
+    get:
+      summary: Obtener los productos
+      tags:
+        - Productos
+      responses:
+        "200":
+          description: Los productos se obtuvieron correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Products"
+              example:
+                product:
+                  _id: "f69dewge646qwef455"
+                  title: "Producto Ejemplar"
+                  description: "El producto es de ejemplo"
+                  price: 99
+                  thumbnail: "jpg99.jpg"
+                  code: 4545
+                  stock: 101
+                  category: "Zapatillas"
+                  owner: "654464ff6sdsfdfsd64"
+        "500":
+          description: Error interno del servidor
+
+    post:
+      summary: Crear producto
+      tags:
+        - Productos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/UpdateProducts"
+      responses:
+        "200":
+          description: El producto se creo de forma correcta
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: "#/components/schemas/Products"
+        "500":
+          description: Error interno del servidor
+
+  "/productos/{pid}":
+    get:
+      summary: Obtener un producto por ID
+      tags:
+        - Productos
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El producto se obtuvo correctamente
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  $ref: "#/components/schemas/Products"
+        "500":
+          description: Error interno del servidor
+
+    put:
+      summary: Modificar un producto
+      tags:
+        - Productos
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      requestBody:
+        requirequired: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/UpdateProducts"
+      responses:
+        "200":
+          description: El producto se modifico en forma correcta
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    $ref: '#/components/schemas/Products'
+              example:
+                product:
+                  _id: "f69dewge646qwef455"
+                  title: "Producto Ejemplar"
+                  description: "El producto es de ejemplo"
+                  price: 99
+                  thumbnail: "jpg99.jpg"
+                  code: 4545
+                  stock: 101
+                  category: "Zapatillas"
+                  owner: "654464ff6sdsfdfsd64"
+            
+        "500":
+          description: Error interno del servidor
+
+    delete:
+      summary: Eliminar producto por ID.
+      tags:
+        - Productos
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      responses:
+        '200':
+          description: El producto se elimino de manera correcta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        '500':
+          description: Error interno del servidor
+
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        _id:
+          type: object id
+          description: id del Producto
+        title:
+          type: String
+          description: Titulo del producto 
+        description:
+          type: String
+          description: Descripcion del producto 
+        price:
+          type: Number
+          description: Precio del producto
+        thumbnail:
+          type: String
+          description: Imagen del producto
+        code:
+          type: Number
+          description: Codigo del producto 
+        stock:
+          type: Number
+          description: Stock del producto 
+        category:
+          type: String
+          description: Categoria del producto 
+        owner:
+          type: string
+          description: Creador/dueño del producto 
+      
+  requestBodies:
+    UpdateProducts:
+      type: object
+      properties:
+        _id:
+          type: object id
+          description: id del Producto
+          example: "f69dewge646qwef4"
+        title:
+          type: string
+          description: titulo del producto
+          example: Producto 6
+        description:
+          type: string
+          description: Descripcion del producto
+          example: El producto es el numero 6
+        price:
+          type: number
+          description: Precio del producto
+          example: 99
+        thumbnail:
+          type: String
+          description: Imagen del producto
+          example: "jpggg6.jpg"
+        code:
+          type: Number
+          description: Codigo del producto
+          example: 6
+        category:
+          type: String
+          description: Categoria del producto
+          example: "Zapatillas"
+        stock:
+          type: number
+          description: Stock del producto
+          example: 100
+        owner:
+          type: ObjectId
+          description: Creador/dueño del producto
+          example: "654464ff6sdsfdfsd64"
