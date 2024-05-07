@@ -24,14 +24,14 @@ class UsersController {
     try {
 
       const user = await userService.getUserById(uid)
-      console.log(`---GET USER ID:`, user)
       const deleteUser = await userService.deleteUser(user)
 
-      console.log("---USUARIO ELIMINADO---",deleteUser)
+      if(user.email){
 
-      const userDeleted = await sendEmailToUserDeletedByAdmin(user.email);
+        const userDeleted = await sendEmailToUserDeletedByAdmin(user.email);
+      }
 
-      res.status(200).send({ status: "success", payload: deleteUser })
+      res.status(200).send(`<h2>El usuario se eliminó correctamente.</h2> <h3><br><a href="/userVisualizer">Click aqui para ir al visor de usuarios <i class="bi bi-people-fill"></i></i></a> <br> <a href="/">Click aqui para volver al inicio</a></h3>`)
 
 
     } catch (error) {
@@ -125,26 +125,7 @@ class UsersController {
       res.json({ status: "error", message: "hubo un error al cambiar el rol del usuario" })
     }
   }
-  // static changeRol = async (req, res) => {
-  //   try {
-  //     const userId = req.params.uid;
 
-  //     const user = await userService.getUserById(userId);
-  //     const userRol = user.role;
-  //     if (userRol === "user") {
-  //       user.role = "admin"
-  //     } else if (userRol === "admin") {
-  //       user.role = "user"
-  //     } else {
-  //       return res.json({ status: "error", message: "no es posible cambiar el role del usuario" });
-  //     }
-  //     await userModel.updateOne({ _id: user._id }, user);
-  //     res.send({ status: "success", message: "rol modificado" });
-  //   } catch (error) {
-  //     console.log(error.message);
-  //     res.json({ status: "error", message: "hubo un error al cambiar el rol del usuario" })
-  //   }
-  // }
 
   static updateUser = async (req, res) => {
     try {
@@ -156,7 +137,7 @@ class UsersController {
       // console.log(user)
 
       if (newRole === user.role) {
-        return res.status(404).send({ error: 'No se puede actualizar un usuario con un rol que ya poseia' });
+        return res.status(404).send(`No se puede actualizar un usuario con un rol que ya poseia. <h3><br><a href="/userVisualizer">Click aqui para ir al visor de usuarios <i class="bi bi-people-fill"></i></i></a> <br> <a href="/">Click aqui para volver al inicio</a></h3>`);
 
       }
 
@@ -168,7 +149,7 @@ class UsersController {
 
       console.log(result)
 
-      return res.status(200).send({ message: 'Usuario actualizado', result });
+      return res.status(200).send(`<h2>El usuario se actualizó correctamente.</h2> <h3><br><a href="/userVisualizer">Click aqui para ir al visor de usuarios <i class="bi bi-people-fill"></i></i></a> <br> <a href="/">Click aqui para volver al inicio</a></h3>`);
     } catch (error) {
       return res.status(500).send({ error: 'Error 500.Internal server error' });
     }
