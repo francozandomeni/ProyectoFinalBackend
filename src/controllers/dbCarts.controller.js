@@ -136,36 +136,27 @@ class CartsController {
     try {
       const user = req.user
       const cid = req.params.cid;
-      console.log("Starting purchase process...");
-      console.log("Cart ID is:", cid);
-      console.log("Cart purchaser:", user)
       if (!user || !cid) {
-        console.log("We can't proceeed without information from the user or cart")
+        return res.status(400).send("We can't proceeed without information from the user or cart")
       }
 
 
       const cart = await cartService.mongoGetCartById(cid);
-      console.log("Cart found:", cart);
 
       if (!cart) {
-        console.log("Cart doesn't exist");
         return res.status(404).json({ error: "El carrito no existe" });
       }
 
       // Checking stock for every product in cart
       for (const cartProduct of cart.products) {
         const product = await productService.mongoGetProductById(cartProduct.product);
-        console.log("'for' from Product:", product); // Check the product
         const quantityInCart = cartProduct.quantity
 
-        console.log("stock in cart/quantity in cart", quantityInCart)
 
 
 
-        console.log(`checking stock for product: ${cartProduct._id}...`);
 
         if (product.stock < quantityInCart) {
-          console.log(`Not enough stock for product: ${cartProduct._id}`);
           // Adjust to no exceed quantity available
           cartProduct.quantity = product.stock;
           // Updating cart in DB
@@ -181,16 +172,13 @@ class CartsController {
       for (const cartProduct of cart.products) {
         const productDetails = await productService.mongoGetProductById(cartProduct.product);
         const product = productDetails.product
-        console.log("segundo FOR", product)
 
         if (!product) {
-          console.log(`Product ${cartProduct.product} not found`);
           return res.status(404).json({ error: `Product ${cartProduct.product} not found` });
         }
 
         const quantityInCart = cartProduct.quantity;
 
-        console.log(`updating stock for product ${cartProduct._id}...`);
 
         // updating product stock
         product.stock -= quantityInCart;
@@ -204,20 +192,17 @@ class CartsController {
 
         // Calculating total amount
         totalAmount += parseFloat(product.price * quantityInCart);
-        console.log(`------TOTAL AMOUNT------`, totalAmount)
 
       }
       //testing b4 ticket
       if (totalAmount === 0 || !totalAmount) {
-        console.log(
-          "TEST. You don't have a total amount in cart. Purchase and ticket will not be generated")
+        return res.send("TEST. You don't have a total amount in cart. Purchase and ticket will not be generated")
+          
       }
 
       //creating ticket
-      console.log("Creating buying ticket.");
       const ticketRepository = new TicketRepository()
 
-      console.log(`------TOTAL AMOUNT2------`, totalAmount)
 
       const newTicket = {
         code: generateCode(),
